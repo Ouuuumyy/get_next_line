@@ -9,12 +9,14 @@
 /*   Updated: 2024/12/19 13:52:43 by oukadir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 12
 # endif
-
+# ifndef FD_MAX
+#  define FD_MAX 1024
+# endif
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
