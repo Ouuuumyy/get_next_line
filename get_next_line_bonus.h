@@ -24,7 +24,7 @@
 
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+size_t	ft_strcpy(char *dst, const char *src);
 char	*read_buff(int fd, char *next);
 char	*ft_strdup(const char *str);
 char	*join_buffers(char *next_line, char *buff);
