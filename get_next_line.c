@@ -78,7 +78,7 @@ char	*remaining_line(char *next_line)
 	char	*temp;
 
 	temp = ft_strchr(next_line, '\n');
-	if (!temp || !temp[1])
+	if (!temp)
 	{
 		free(next_line);
 		return (NULL);
@@ -93,55 +93,12 @@ char	*get_next_line(int fd)
 	static char	*next_line;
 	char		*line;
 
-	if (fd < 0  || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	next_line = read_buff(fd, next_line);
 	if (!next_line || next_line[0] == '\0')
-	{
-		// free(next_line);   hana fin kan lblan
 		return (NULL);
-	}
 	line = one_line(next_line);
 	next_line = remaining_line(next_line);
 	return (line);
 }
-
-// int	main(void)
-// {
-// 	int fd;
-// 	char *next_line;
-// 	fd = open("text.txt", O_RDWR, 0666);
-// 	if (fd < 0)
-// 		printf("error when opening file");
-// 	while ((next_line = get_next_line(fd)) != NULL)
-// 	{
-// 		printf("%s", next_line);
-// 		free(next_line);
-// 	}
-// 	close(fd);
-// 	return (0);
-// }
-
-// int	main(void)
-// {
-// 	int fd;
-// 	char *next_line;
-// 	fd = open("text.txt", O_RDWR, 0666);
-// 	int fd1 = open("text1.txt", O_RDWR);
-// 	if (fd < 0)
-// 		printf("error when opening file");
-// 	next_line = get_next_line(fd);
-// 	printf("%s", next_line);
-// 	free(next_line);
-// 	next_line = get_next_line(fd1);
-// 	printf("%s", next_line);
-// 	free(next_line);
-// 	next_line = get_next_line(fd);
-// 	printf("%s", next_line);
-// 	free(next_line);
-// 	next_line = get_next_line(fd1);
-// 	printf("%s", next_line);
-// 	free(next_line);
-// 	close(fd);
-// 	return (0);
-// }

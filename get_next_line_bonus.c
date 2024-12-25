@@ -16,7 +16,8 @@ char	*join_buffers(char *next_line, char *buff)
 	char	*temp;
 
 	temp = ft_strjoin(next_line, buff);
-	free(next_line);
+	if (next_line)
+		free(next_line);
 	return (temp);
 }
 
@@ -92,66 +93,12 @@ char	*get_next_line(int fd)
 	static char	*next_line[FD_MAX];
 	char		*line;
 
-	if (fd < 0 || read(fd, NULL, 0) < 0 || BUFFER_SIZE <= 0 || fd > 1024)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 1024)
 		return (NULL);
-	if (!next_line[fd])
-	{
-		next_line[fd] = malloc(1);
-		if (next_line[fd])
-			next_line[fd][0] = '\0';
-	}
-	if (!ft_strchr(next_line[fd], '\n'))
-	{
-		next_line[fd] = read_buff(fd, next_line[fd]);
-		if (!next_line[fd] || next_line[fd][0] == '\0')
-		{
-			free(next_line[fd]);
-			return (NULL);
-		}
-	}
+	next_line[fd] = read_buff(fd, next_line[fd]);
+	if (!next_line[fd] || next_line[fd][0] == '\0')
+		return (NULL);
 	line = one_line(next_line[fd]);
 	next_line[fd] = remaining_line(next_line[fd]);
 	return (line);
 }
-
-// int	main(void)
-// {
-// 	int fd;
-// 	char *next_line;
-// 	fd = open("text.txt", O_RDWR, 0666);
-// 	if (fd < 0)
-// 		printf("error when opening file");
-// 	while ((next_line = get_next_line(fd)) != NULL)
-// 	{
-// 		printf("%s", next_line);
-// 		free(next_line);
-// 	}
-// 	close(fd);
-// 	return (0);
-// }
-
-// int	main(void)
-// {
-// 	int		fd;
-// 	char	*next_line;
-// 	int		fd1;
-
-// 	fd = open("text.txt", O_RDWR, 0666);
-// 	fd1 = open("text1.txt", O_RDWR);
-// 	if (fd < 0)
-// 		printf("error when opening file");
-// 	next_line = get_next_line(fd);
-// 	printf("%s", next_line);
-// 	free(next_line);
-// 	next_line = get_next_line(fd1);
-// 	printf("%s", next_line);
-// 	free(next_line);
-// 	next_line = get_next_line(fd);
-// 	printf("%s", next_line);
-// 	free(next_line);
-// 	next_line = get_next_line(fd1);
-// 	printf("%s", next_line);
-// 	free(next_line);
-// 	close(fd);
-// 	return (0);
-// }

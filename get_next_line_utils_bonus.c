@@ -63,30 +63,36 @@ char	*ft_strdup(const char *str)
 	return (c);
 }
 
+size_t	ft_strcpy(char *dst, const char *src)
+{
+	size_t	i;
+
+	i = 0;
+	while (src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	return (ft_strlen(src));
+}
+
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*str;
-	size_t	i;
-	size_t	j;
 	size_t	len1;
 	size_t	len2;
 
-	i = 0;
-	j = 0;
+	if (!s1 && s2)
+		return (ft_strdup(s2));
+	if (s1 && !s2)
+		return (ft_strdup(s1));
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
-	if (!s1 || !s2)
-		return (NULL);
 	str = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
 	if (str == NULL)
 		return (NULL);
-	while (i < len1)
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	while (i < (len1 + len2))
-		str[i++] = s2[j++];
-	str[i] = '\0';
+	ft_strcpy(str, s1);
+	ft_strcpy(str + len1, s2);
+	str[len1 + len2] = '\0';
 	return (str);
 }
