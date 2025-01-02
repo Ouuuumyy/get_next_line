@@ -97,8 +97,13 @@ char	*get_next_line(int fd)
 		return (NULL);
 	next_line[fd] = read_buff(fd, next_line[fd]);
 	if (!next_line[fd] || next_line[fd][0] == '\0')
-		return (NULL);
+	{
+		free(next_line[fd]);
+		next_line[fd] = NULL;
+		return(NULL);
+	}
 	line = one_line(next_line[fd]);
 	next_line[fd] = remaining_line(next_line[fd]);
 	return (line);
 }
+
